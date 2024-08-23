@@ -9,7 +9,7 @@ export default function LandingPage() {
 	const [iframes, setIframes] = useState([]);
 
 	const renderEmbeddedResume = (applicantNumber, tierNumber) => {
-		const iframeSrc = `/online-survey-digital-trace-data/#/${applicantNumber}/${tierNumber}/0sampleResponseIDstudy${applicantNumber}`;
+		const iframeSrc = `/test_survey/#/${applicantNumber}/${tierNumber}/0sampleResponseIDstudy${applicantNumber}`;
 		const iframeTitle = `${applicantNumber}${tierNumber}`;
 
 		const newIframe = (
