@@ -58,6 +58,7 @@ export default class Resume extends React.Component {
 
 		// Try tracking when page is refreshed or navigated away
 		window.addEventListener('pagehide', (event) => {
+			event.preventDefault();
 			console.log('pagehide...');
 			const currTime = moment().tz("America/New_York")
 
