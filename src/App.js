@@ -30,6 +30,7 @@ export default class App extends React.Component {
 
 	/** Record the data (in Firebase, and print to console) */
 	async recordActivity(category, value, description) {
+		console.log(this.qualtricsUserId + " " + description)
 		if (this.qualtricsUserId === undefined || this.qualtricsUserId.startsWith('${e:')) return;
 
 		// This will be the ID of the activity in Firebase -- a string, padded to 5 digits so alphabetical sorting works
@@ -63,6 +64,7 @@ export default class App extends React.Component {
 			.collection('app' + this.applicantNumber.toString()).get()
 			.then((querySnapshot) => {
 				this.activityCounter = querySnapshot.size + 1
+				console.log(this.qualtricsUserId + '?!');
 				this.recordActivity("loading", "accessed", "App mounted");
 			});
 	}
