@@ -57,9 +57,9 @@ export default class Resume extends React.Component {
 		});
 
 		// Try tracking when page is refreshed or navigated away
-		window.addEventListener('blur', (event) => {
+		window.addEventListener('pagehide', (event) => {
 			event.preventDefault();
-			console.log('blur...');
+			console.log('pagehide...');
 			const currTime = moment().tz("America/New_York")
 
 			// If a section is still opened, record its active time
@@ -80,7 +80,7 @@ export default class Resume extends React.Component {
 
 			// Record click activity
 			this.recordActivity("unloading", "accessed", "App unmounted");
-		});
+		}, true);
 	}
 
 	componentWillUnmount() {
