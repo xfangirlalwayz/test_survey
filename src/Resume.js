@@ -133,7 +133,7 @@ export default class Resume extends React.Component {
 
 	/** Called when a section is toggled open/closed */
 	// TODO(bkbyun): Change these values.
-	collapsibleToggled(eventKey) {
+	collapsibleToggled(eventKey, event) {
 		if (this.state[eventKey + "SectionOpened"]) {  // if clicked on the section to open, start tracking time spent
 			this.setState({
 				activeSection: eventKey,
@@ -149,7 +149,7 @@ export default class Resume extends React.Component {
 		this.recordActivity(
 			"collapsibleToggled",
 			eventKey,
-			(this.state[eventKey + "SectionOpened"] ? "opened" : "closed") + " " + eventKey + " section"
+			(this.state[eventKey + "SectionOpened"] ? "opened" : "closed") + " " + eventKey + " section" + (event.isTrusted ? "" : " (auto)")
 		);
 	}
 
@@ -315,14 +315,14 @@ export default class Resume extends React.Component {
 										variant="link"
 										eventKey="0"
 										ref={i => this.hsprofile = i}
-										onClick={() =>
+										onClick={(event) =>
 											this.setState(
 												{
 													hsprofileSectionOpened:
 														!this.state.hsprofileSectionOpened,
 												},
 												() => {
-													this.collapsibleToggled("hsprofile");
+													this.collapsibleToggled("hsprofile", event);
 													if (this.state.hsprofileSectionOpened) {
 														// Mark the other sections as closed
 														this.setState({
@@ -380,13 +380,13 @@ export default class Resume extends React.Component {
 										variant="link"
 										eventKey="1"
 										ref={i => this.transcript = i}
-										onClick={() =>
+										onClick={(event) =>
 											this.setState(
 												{
 													transcriptSectionOpened: !this.state.transcriptSectionOpened,
 												},
 												() => {
-													this.collapsibleToggled("transcript");
+													this.collapsibleToggled("transcript", event);
 													if (this.state.transcriptSectionOpened) {
 														this.setState({
 															// Mark the other sections as closed
@@ -444,13 +444,13 @@ export default class Resume extends React.Component {
 										variant="link"
 										eventKey="2"
 										ref={i => this.activities = i}
-										onClick={() =>
+										onClick={(event) =>
 											this.setState(
 												{
 													activitiesSectionOpened: !this.state.activitiesSectionOpened,
 												},
 												() => {
-													this.collapsibleToggled("activities");
+													this.collapsibleToggled("activities", event);
 													if (this.state.activitiesSectionOpened) {
 														// Mark the other sections as closed
 														this.setState({
@@ -507,13 +507,13 @@ export default class Resume extends React.Component {
 										variant="link"
 										eventKey="3"
 										ref={i => this.essay = i}
-										onClick={() =>
+										onClick={(event) =>
 											this.setState(
 												{
 													essaySectionOpened: !this.state.essaySectionOpened,
 												},
 												() => {
-													this.collapsibleToggled("essay"); /*bkcheck*/
+													this.collapsibleToggled("essay", event); /*bkcheck*/
 													if (this.state.essaySectionOpened) {
 														this.setState({
 															// Mark the other sections as closed
