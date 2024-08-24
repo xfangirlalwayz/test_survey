@@ -57,9 +57,9 @@ export default class Resume extends React.Component {
 		});
 
 		// Try tracking when page is refreshed or navigated away
-		window.addEventListener('pagehide', (event) => {
+		window.addEventListener('blur', (event) => {
 			event.preventDefault();
-			console.log('pagehide...');
+			console.log('blur...');
 			const currTime = moment().tz("America/New_York")
 
 			// If a section is still opened, record its active time
