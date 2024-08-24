@@ -57,19 +57,24 @@ export default class Resume extends React.Component {
 		});
 
 		// Try tracking when page is refreshed or navigated away
+		window.addEventListener('blur', (event) => {
+			event.preventDefault();
+			console.log('blur...');
+
+			if (this.state.activeSection) {
+				console.log('closing ' + this.state.activeSection + ' tab');
+				this[this.state.activeSection].click()
+				this.setState({
+					activeSection: undefined,
+					activeStartTime: undefined
+				})
+			}
+		});
+
 		window.addEventListener('pagehide', (event) => {
 			event.preventDefault();
 			console.log('pagehide...');
 			const currTime = moment().tz("America/New_York")
-
-			// If a section is still opened, record its active time
-			if (this.state.activeSection) {
-				this.recordActivity(
-					"collapsibleTime",
-					this.state.activeSection,
-					currTime.diff(this.state.activeStartTime, 'milliseconds') + " msec spent on " + this.state.activeSection + " section"
-				);
-			}
 
 			// Record total time spent on app
 			this.recordActivity(
@@ -80,7 +85,7 @@ export default class Resume extends React.Component {
 
 			// Record click activity
 			this.recordActivity("unloading", "accessed", "App unmounted");
-		}, true);
+		});
 	}
 
 	componentWillUnmount() {
@@ -309,6 +314,7 @@ export default class Resume extends React.Component {
 										}}
 										variant="link"
 										eventKey="0"
+										ref={i => this.hsprofile = i}
 										onClick={() =>
 											this.setState(
 												{
@@ -373,6 +379,7 @@ export default class Resume extends React.Component {
 										}}
 										variant="link"
 										eventKey="1"
+										ref={i => this.transcript = i}
 										onClick={() =>
 											this.setState(
 												{
@@ -436,6 +443,7 @@ export default class Resume extends React.Component {
 										}}
 										variant="link"
 										eventKey="2"
+										ref={i => this.activities = i}
 										onClick={() =>
 											this.setState(
 												{
@@ -498,6 +506,7 @@ export default class Resume extends React.Component {
 										}}
 										variant="link"
 										eventKey="3"
+										ref={i => this.essay = i}
 										onClick={() =>
 											this.setState(
 												{

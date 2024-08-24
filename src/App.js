@@ -29,8 +29,8 @@ export default class App extends React.Component {
 	}
 
 	/** Record the data (in Firebase, and print to console) */
-	recordActivity(category, value, description) {
-		if (this.qualtricsUserId === undefined) return;
+	async recordActivity(category, value, description) {
+		if (this.qualtricsUserId === undefined || this.qualtricsUserId.startsWith('${e:')) return;
 
 		// This will be the ID of the activity in Firebase -- a string, padded to 5 digits so alphabetical sorting works
 		const id = this.activityCounter.toString().padStart(5, "0");
