@@ -49,7 +49,9 @@ export default class Resume extends React.Component {
 		});
 
 		// Make sure document exists
-		this.db.collection('responseIDs').doc(this.props.qualtricsUserId + '_tier' + this.props.tierNumber).set({});
+		if (!this.props.qualtricsUserId.startsWith('${e:')) {
+			this.db.collection('responseIDs').doc(this.props.qualtricsUserId + '_tier' + this.props.tierNumber).set({});
+		}
 
 		// Track app start time
 		this.setState({
@@ -90,6 +92,14 @@ export default class Resume extends React.Component {
 
 	componentWillUnmount() {
 		console.log('componentWillUnmount from Resume.js');
+		const currTime = moment().tz("America/New_York")
+
+		// Record total time spent on app
+		this.recordActivity(
+			"appTime",
+			"accessed",
+			currTime.diff(this.state.appStartTime, 'milliseconds') + " msec spent on app (APP UNMOUNT FROM RESUME.JS)"
+		);
 	}
 
 	/** The first resume has randomly-decided values. Decide them and put into state. */

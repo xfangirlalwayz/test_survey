@@ -71,6 +71,13 @@ export default class App extends React.Component {
 
 	componentWillUnmount() {
 		console.log('componentWillUnmount from App.js');
+
+		// Record total time spent on app
+		this.recordActivity(
+			"appTime",
+			"accessed",
+			"APP UNMOUNT FROM APP.JS"
+		);
 	}
 
 	render() {
